@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  mysql:
+    #image: mysql:latest
+    image: mysql:5.7
+    container_name: mysql-docker
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: atutama
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./init:/docker-entrypoint-initdb.d
+      - ./docker/mysql57/var/lib/mysql:/var/lib/mysql #versionによってディレクトリ名変える
+      - ./docker/mysql57/var/log/mysql:/var/log/mysql #versionによってディレクトリ名変える
+        #- ./docker/mysql/var/lib/mysql:/var/lib/mysql
+        #- ./docker/mysql/var/log/mysql:/var/log/mysql
+    ports:
+      - "3306:3306"
